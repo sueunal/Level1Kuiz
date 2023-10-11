@@ -31,7 +31,7 @@ struct HomeView: View {
                                 .transition(.offset(x: 0, y: 300))
                         }
                     }
-                    .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
+                    .padding(EdgeInsets(top: 40, leading: 40, bottom: 0, trailing: 40))
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 }
 
@@ -39,15 +39,20 @@ struct HomeView: View {
                     VStack {
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Level1Kuiz")
-                                    .font(.largeTitle)
-                                    .fontWeight(.heavy)
-                                Text("Swift Coding Club 1기 Level 1 Korean Quiz")
-                                    .font(.caption)
-                                    .fontWeight(.medium)
+                                HStack(alignment: .lastTextBaseline, spacing: 4) {
+                                    Text("Kuiz")
+                                        .font(.largeTitle)
+                                        .fontWeight(.heavy)
+                                    Text("Korean Quiz")
+                                        .font(.footnote)
+                                        .fontWeight(.medium)
+                                }
+
+                                Text("Copyright(c) 2023 Swift Coding Club")
+                                    .font(.caption2)
                             }
                             Text("심심할 때 띄어쓰기 한판 어떠세요?\n풀면 풀수록 재밌는 띄어쓰기 문제!\n지금 바로 시작해 보세요 😎")
-                        }
+                        }.padding(.top, 20)
 
                         Spacer()
 
@@ -84,9 +89,7 @@ struct HomeView: View {
             }
         })
         .onReceive(timer) { _ in
-            if quizExamplesModel.data.isEmpty {
-                return
-            }
+            guard !quizExamplesModel.data.isEmpty else { return }
 
             withAnimation(.easeInOut(duration: 0.6)) {
                 answers = quizExamplesModel.data.randomElement()!
@@ -94,7 +97,6 @@ struct HomeView: View {
         }
         .preferredColorScheme(.light)
     }
-
 }
 
 struct HomeView_Previews: PreviewProvider {
